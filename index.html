@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Groupie Tracker · Music Artists Directory</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="/style/style.css" />
+</head>
+
+<body>
+
+  <div class="navbar">
+    <div class="nav-content">
+      <div class="logo">
+        <i class="fas fa-headphones"></i>
+        <span>Groupie Tracker</span>
+      </div>
+
+      <form action="/result" method="POST" class="search-container">
+        <div class="searchbar-wrapper">
+          <button type="submit" class="search-button">
+            <i class="fas fa-search"></i>
+          </button>
+          <input type="text" name="artist" placeholder="Search here ..." list="artist-list" class="search-input" />
+          <datalist id="artist-list">
+            {{ range . }}
+            <option value="{{.ID}}: {{.Artist}}">{{.Artist}} - artist</option>
+            <option value="{{.ID}}: {{.Artist}}">
+              {{ range .Members }}
+              {{.}} - Member
+
+            </option> 
+            {{ end }}
+
+            <option value="{{.ID}}: {{.Artist}}">{{.Album1}} - creation date</option>
+            <option value="{{.ID}}: {{.Artist}}">{{.AlbumYear}} - last album</option>
+
+            {{ end }}
+          </datalist>
+
+        </div>
+      </form>
+
+
+    </div>
+  </div>
+
+
+  <main>
+    <div class="hero">
+      <h1>Discover Your Favorite Artists</h1>
+      <p>
+        Explore detailed information about various music artists, their
+        concerts, and more
+      </p>
+    </div>
+
+    <form action="/result" method="post" class="artists-grid">
+      {{ range . }}
+      <button type="submit" class="artist-card" name="artist" value="{{.ID}}">
+        <div class="card-content">
+          <div class="image-wrapper">
+            <img src="{{.Image}}" alt="{{.Artist}}" loading="lazy" />
+            <div class="overlay">
+              <i class="fas fa-compact-disc"></i>
+              <span>View Details</span>
+            </div>
+          </div>
+          <div class="artist-info">
+            <h3>{{.Artist}}</h3>
+          </div>
+        </div>
+      </button>
+      {{ end }}
+    </form>
+  </main>
+
+  <footer>
+    <p>
+      © 2024 Groupie Tracker · Made with <i class="fas fa-heart"></i> in
+      Reboot
+    </p>
+  </footer>
+</body>
+
+</html>
