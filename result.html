@@ -21,7 +21,6 @@
           <span>Groupie Tracker</span>
         </div>
         <div class="topnav">
-
         </div>
       </div>
     </nav>
@@ -39,7 +38,9 @@
             <div class="info-item">
               <i class="fas fa-users"></i>
               <h3>Members</h3>
-              <p>{{.Members}}</p>
+            {{range .Members}}
+              <p>{{.}}</p>
+          {{end}}
             </div>
 
             <div class="info-item">

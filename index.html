@@ -18,28 +18,37 @@
         <span>Groupie Tracker</span>
       </div>
 
-      <form action="/result" method="POST" class="search-container">
+      <form action="/homepagesearch" method="POST" class="search-container">
         <div class="searchbar-wrapper">
-          <button type="submit" class="search-button">
-            <i class="fas fa-search"></i>
-          </button>
-          <input type="text" name="artist" placeholder="Search here ..." list="artist-list" class="search-input" />
+              <button type="submit" class="search-button">
+                <i class="fas fa-search"></i>
+              </button>
+              <input type="text" name="suggestions[]" placeholder="Search here ..." list="artist-list" class="search-input" />
+        </div>
           <datalist id="artist-list">
             {{ range . }}
-            <option value="{{.ID}}: {{.Artist}}">{{.Artist}} - artist</option>
-            <option value="{{.ID}}: {{.Artist}}">
+              <option value="{{.Artist}} - artist                                                                                                       :{{.ID}}"></option>
+              {{ $outerID := .ID }}
+              
               {{ range .Members }}
-              {{.}} - Member
-
-            </option> 
+                <option value="{{.}} - member                                                                                                          :{{ $outerID }}"></option>
+              {{ end }}
+          
+              <option value="{{.Album1}} - creation date                                                                                                           :{{.ID}}"></option>
+              <option value="{{.AlbumYear}} - last album                                                                                                              :{{.ID}}"></option>
             {{ end }}
-
-            <option value="{{.ID}}: {{.Artist}}">{{.Album1}} - creation date</option>
-            <option value="{{.ID}}: {{.Artist}}">{{.AlbumYear}} - last album</option>
-
-            {{ end }}
+    
           </datalist>
-
+       
+          {{ range . }}
+          <input type="hidden" name="suggestions[]" value="{{.Artist}} - artist:{{.ID}}" />
+          {{ $outerID := .ID }}
+          {{ range .Members }}
+          <input type="hidden" name="suggestions[]" value="{{.}} - member:{{ $outerID }}" />
+          {{ end }}
+          <input type="hidden" name="suggestions[]" value="{{.Album1}} - creation date:{{.ID}}" />
+          <input type="hidden" name="suggestions[]" value="{{.AlbumYear}} - last album:{{.ID}}" />
+          {{ end }}
         </div>
       </form>
 
