@@ -18,7 +18,7 @@ type Final struct {
 	Image     string
 	Artist    string
 	Members   functions.Members
-	AlbumYear int
+	AlbumYear string
 	Album1    string
 	Locations []string
 }
@@ -39,6 +39,7 @@ func homepagesearch(w http.ResponseWriter, r *http.Request) {
 	}
 	// where form value is collected for artist name annd fed innto the relavent funnction
 	artIdsug := r.FormValue("suggestions[]")
+
 	fmt.Println("artIdsug:", artIdsug)
 	var ids []int
 
@@ -46,7 +47,7 @@ func homepagesearch(w http.ResponseWriter, r *http.Request) {
 
 for _, data := range character {
 		fmt.Print(string(data.Artist))
-		if strings.Contains(string(data.Artist), artIdsug) {
+		if strings.Contains(string(data.Artist), strings.Title(artIdsug)){
 			ids = append(ids, data.ID)
 
 	} 
@@ -54,15 +55,16 @@ for _, data := range character {
 		if strings.Contains(mem,artIdsug) {
 			ids = append(ids, data.ID)
 		}
-	// if strings.Contains(data.Album1,artIdsug) {
-	// 	ids = append(ids, data.ID)
-	// }
-	// if strings.Contains(strconv.Itoa(data.AlbumYear),artIdsug)  {
-	// 	ids = append(ids, data.ID)
-	// }
+	if strings.Contains(data.Album1,artIdsug) {
+		ids = append(ids, data.ID)
+	}
+	if strings.Contains(data.AlbumYear,artIdsug)  {
+		ids = append(ids, data.ID)
+	}
 	
 }
 }
+
 	// make thhis
 
 	// for _, sug := range artIdsug {
