@@ -23,7 +23,7 @@
               <button type="submit" class="search-button">
                 <i class="fas fa-search"></i>
               </button>
-              <input type="text" name="suggestions[]" placeholder="Search here ..." list="artist-list" class="search-input" />
+              <input type="text" name="suggestions[]" placeholder="Search here ..." list="artist-list" class="search-input" required />
         </div>
           <datalist id="artist-list">
             {{ range . }}
